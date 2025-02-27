@@ -6,8 +6,8 @@
             alt="{{ contact.name }}" 
             class="img-responsive"
             style="max-height: 50px;">
-        <button class="btn btn-primary" type="button">Edit</button>
-        <button class="btn btn-danger" type="button"> Delete</button>
+        <a class="btn btn-primary" type="button" [routerLink]="['/contacts', contact.id, 'edit']">Edit</a>
+        <a class="btn btn-danger" type="button" (click)="onDelete()"> Delete</a>
     </div>
     <div class="panel-body">
         <p>Email: {{ contact.email }}</p>
