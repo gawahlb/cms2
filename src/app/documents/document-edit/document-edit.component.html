@@ -48,7 +48,7 @@
             required >
             <div 
               class="alert alert-danger"
-              *ngIf="!document?.name || !document?.url">The Document Title and Document URL are required fields.</div>
+              *ngIf="name.invalid || url.invalid">The Document Title and Document URL are required fields.</div>
         </div>
       </div>
 
