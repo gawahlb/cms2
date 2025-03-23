@@ -11,7 +11,7 @@ import { Subject } from "rxjs";
 export class MessageService {
     messages: Message[] = []
     maxMessageId: number;
-    private url = "https://cms-project-c6bed-default-rtdb.firebaseio.com/messages.json";
+    private url = "http://localhost:3000/messages/";
 
     messageChangedEvent = new Subject<Message[]>();
 
@@ -68,7 +68,7 @@ export class MessageService {
             const headers = new HttpHeaders({
                 'Content-Type': 'application/json',
             });
-            this.http.put("https://cms-project-c6bed-default-rtdb.firebaseio.com/messages.json", stringMessages, { headers: headers }).subscribe(() => {
+            this.http.put("http://localhost:3000/messages/", stringMessages, { headers: headers }).subscribe(() => {
                 this.messageChangedEvent.next(this.messages.slice());
             },
             (error: any) => {

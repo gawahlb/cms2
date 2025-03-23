@@ -14,7 +14,7 @@ export class ContactService {
    contactListChangedEvent = new Subject<Contact[]>();
    contacts: Contact [] =[];
 
-   private url = "https://cms-project-c6bed-default-rtdb.firebaseio.com/contacts.json";
+   private url = "http://localhost:3000/contacts/";
 
    constructor(private http: HttpClient) {
       this.contacts = MOCKCONTACTS;
@@ -40,7 +40,7 @@ export class ContactService {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
-        this.http.put("https://cms-project-c6bed-default-rtdb.firebaseio.com/contacts.json", stringContacts, { headers: headers }).subscribe(() => {
+        this.http.put("http://localhost:3000/contacts/", stringContacts, { headers: headers }).subscribe(() => {
             this.contactListChangedEvent.next(this.contacts.slice());
         },
         (error: any) => {

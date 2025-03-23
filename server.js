@@ -5,12 +5,25 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
 const messageRoutes = require('./server/routes/messages');
 const contactRoutes = require('./server/routes/contacts');
 const documentsRoutes = require('./server/routes/documents');
+
+(async () => {
+  try {
+    await mongoose.connect('mongodb://localhost:27017/cms', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('Connected to database!');
+  } catch (err) {
+    console.log('Connection failed: ' + err);
+  }
+})();
 
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ... 
 
@@ -51,13 +64,13 @@ app.use('/documents', documentsRoutes);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
 
-app.use(function(req, res, next) {
-    res.render("index");
-})
+//app.use(function(req, res, next) {
+//    res.render("index");
+//})
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/cms/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/cms/browser/index.html'));
 });
 
 // Define the port address and tell express to use this port
@@ -71,3 +84,7 @@ const server = http.createServer(app);
 server.listen(port, function() {
   console.log('API running on localhost: ' + port)
 });
+
+
+
+
